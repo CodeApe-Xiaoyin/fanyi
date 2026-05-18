@@ -133,3 +133,37 @@
 - 用户验证渐进式渲染效果：字幕是否在 2-4s 内出现、进度文案是否更新。
 - 验证通过后提交 worktree 改动到分支并合并 main。
 - 字体族选择体验优化仍待处理。
+
+## 2026-05-18
+
+### Goal
+按用户需求文档实现 4 大 UI 功能模块：字幕内嵌工具栏 + 可点击单词、设置面板重构（Anthropic 品牌风格）、增强侧边栏（4 标签页）、点词翻译/发音/ASK AI，并部署到 GitHub。
+
+### Changes
+- Phase 1: 新建 subtitle-toolbar.ts、toolbar-dropdown.ts；subtitle-overlay.ts 集成工具栏、拖拽重构为仅 drag-handle、英文单词添加 word-clickable 点击事件；popup 添加背景控制；背景框从 width:78% 改为 fit-content 紧凑包裹文字
+- Phase 2: 新建 SettingsPanel、SettingsNav、7 个设置页面、LivePreview、StylePresetCard、settings-modal.ts；Presets 从 4 个扩展为 15 个；Anthropic 品牌色 (#faf9f5 浅色主题、Poppins/Lora 字体、#d97757 橙色强调)；对话框改为居中 900×640px
+- Phase 3: 新建 SidePanelHost、SidePanelApp、4 个标签页组件；新增 fanyi/ai-summarize、fanyi/ai-ask、fanyi/ai-transcribe 消息类型和后台 handler
+- Phase 4: 新建 WordPopup、pronunciation.ts；Web Speech API 发音 + ASK AI 追问
+- Phase 5: git init、创建 GitHub 仓库 (CodeApe-Xiaoyin/fanyi)、写 README.md、docs/CHANGES.md
+- 安装 GitHub MCP、Chrome DevTools MCP、neat skill
+
+### Decisions
+- 采用 Anthropic brand-guidelines 技能规范设计 UI：浅色主题、Poppins 标题 + Lora 正文、橙色主强调色
+- 设置面板使用居中对话框而非全屏，带毛玻璃遮罩
+- 侧边栏和设置面板均用 React + Shadow DOM 隔离，懒加载避免 content script 包体膨胀
+- 核心翻译管线（PipelineUseCase、SentenceReconstructor、TranslateBatchUseCase）完全不触摸
+- AI 功能走新增独立消息类型，不复用翻译链路
+
+### Failed Attempts
+- frontend-design skill 在环境中不可用（未注册为 Claude Code skill），改为直接应用 Anthropic brand-guidelines 规范手写 CSS
+
+### Validation
+- npx tsc --noEmit: passed (0 errors)
+- npm run build: passed (831ms)
+- npm test: passed (62/62)
+- Manual YouTube: not done
+
+### Follow-ups
+- Chrome 加载 dist/ 验证所有新功能
+- 添加侧边栏打开按钮到 YouTube 页面
+- 修复发现的问题后重建并推送
