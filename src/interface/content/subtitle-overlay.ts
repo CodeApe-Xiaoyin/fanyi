@@ -584,8 +584,9 @@ export class SubtitleOverlay {
         position: absolute;
         ${positionCss}
         right: auto;
-        width: ${maxWidth}%;
-        max-width: calc(100% - 24px);
+        width: fit-content;
+        min-width: 10%;
+        max-width: ${maxWidth}%;
         padding: ${this.style.backgroundEnabled ? `${zhSize * 0.34}px ${zhSize * 0.52}px` : '0'};
         border-radius: ${this.style.backgroundEnabled ? `${Math.max(8, zhSize * 0.28)}px` : '0'};
         background: ${this.style.backgroundEnabled ? backgroundColor : 'transparent'};
