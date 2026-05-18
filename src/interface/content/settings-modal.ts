@@ -5,9 +5,9 @@ const MODAL_CSS = `
 :host{all:initial}
 .modal-backdrop{
   position:fixed;inset:0;z-index:2147483647;
-  background:rgba(8,8,24,0.72);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
+  background:rgba(20,20,19,0.38);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
   display:flex;align-items:center;justify-content:center;
   animation:fadeIn 180ms ease;
 }
