@@ -27,10 +27,19 @@ export function App(): JSX.Element {
   };
 
   return (
-    <SettingsPanel
-      settings={settings}
-      onSettingsChange={setSettings}
-      onStyleChange={handleStyleChange}
-    />
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      background: 'radial-gradient(ellipse at 30% 20%, rgba(100,120,180,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, rgba(60,80,140,0.04) 0%, transparent 50%), #0a0c14',
+      padding: 32,
+    }}>
+      <SettingsPanel
+        settings={settings}
+        onSettingsChange={setSettings}
+        onStyleChange={handleStyleChange}
+      />
+    </div>
   );
 }

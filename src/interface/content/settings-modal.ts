@@ -1,12 +1,23 @@
 import type { AppSettings, SubtitleStyle } from '@/shared/types';
 import { getSettings, updateStyleSettings } from './messaging';
 
-type SettingsPanelType = Awaited<ReturnType<typeof import('@/interface/shared-ui/settings-panel/SettingsPanel')['SettingsPanel']>>;
+const MODAL_CSS = `
+:host{all:initial}
+.modal-backdrop{
+  position:fixed;inset:0;z-index:2147483647;
+  background:rgba(8,8,24,0.72);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeIn 180ms ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+`;
 
 export class SettingsModal {
   private host: HTMLDivElement | null = null;
   private root: ReturnType<typeof import('react-dom/client')['createRoot']> | null = null;
-  private panel: SettingsPanelType | null = null;
   private shadowRoot: ShadowRoot | null = null;
   private visible = false;
 
@@ -15,17 +26,24 @@ export class SettingsModal {
     this.visible = true;
 
     this.host = document.createElement('div');
-    this.host.style.cssText = 'position:fixed;inset:0;z-index:2147483647;';
     this.shadowRoot = this.host.attachShadow({ mode: 'closed' });
 
+    const style = document.createElement('style');
+    style.textContent = MODAL_CSS;
+    this.shadowRoot.append(style);
+
     const backdrop = document.createElement('div');
-    backdrop.style.cssText = 'position:absolute;inset:0;background:rgba(0,0,0,0.6);';
-    backdrop.addEventListener('click', () => this.hide());
+    backdrop.className = 'modal-backdrop';
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) this.hide();
+    });
     this.shadowRoot.append(backdrop);
 
-    document.body.append(this.host);
+    const container = document.createElement('div');
+    backdrop.append(container);
 
-    void this.renderPanel();
+    document.body.append(this.host);
+    void this.renderPanel(container);
   }
 
   hide(): void {
@@ -37,11 +55,9 @@ export class SettingsModal {
     this.root = null;
   }
 
-  isVisible(): boolean {
-    return this.visible;
-  }
+  isVisible(): boolean { return this.visible; }
 
-  private async renderPanel(): Promise<void> {
+  private async renderPanel(container: HTMLDivElement): Promise<void> {
     const [React, { createRoot }, { SettingsPanel }] = await Promise.all([
       import('react'),
       import('react-dom/client'),
@@ -50,14 +66,9 @@ export class SettingsModal {
 
     if (!this.shadowRoot || !this.visible) return;
 
-    const container = document.createElement('div');
-    this.shadowRoot.append(container);
-
     const handleStyleChange = async (patch: Partial<SubtitleStyle>) => {
       return updateStyleSettings(patch);
     };
-
-    const handleClose = () => this.hide();
 
     this.root = createRoot(container);
     this.root.render(
@@ -65,7 +76,7 @@ export class SettingsModal {
         settings: (await getSettings()) as AppSettings,
         onSettingsChange: () => { void getSettings(); },
         onStyleChange: handleStyleChange,
-        onClose: handleClose,
+        onClose: () => this.hide(),
       }),
     );
   }

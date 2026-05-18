@@ -25,7 +25,7 @@ interface SettingsNavProps {
 export function SettingsNav({ activePage, onPageChange }: SettingsNavProps): JSX.Element {
   return (
     <nav className="sp-nav">
-      <div className="sp-nav-header">S 设置</div>
+      <div className="sp-nav-brand">S 设置</div>
       <div className="sp-nav-items">
         {PAGES.map((page) => (
           <button

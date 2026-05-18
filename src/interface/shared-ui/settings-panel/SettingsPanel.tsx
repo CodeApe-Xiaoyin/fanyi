@@ -29,11 +29,11 @@ export function SettingsPanel({
   const [activePage, setActivePage] = useState<SettingsPage>('subtitle-language');
 
   return (
-    <div className="sp-root">
+    <div className="sp-dialog" style={{ position: 'relative' }}>
       {onClose && (
         <button
           type="button"
-          className="sp-close-btn"
+          className="sp-dialog-close"
           onClick={onClose}
           aria-label="关闭设置"
         >

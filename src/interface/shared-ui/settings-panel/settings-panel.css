@@ -1,321 +1,435 @@
-.sp-root {
+/* ── Dialog Shell ── */
+.sp-dialog {
+  width: 820px;
+  max-width: calc(100vw - 48px);
+  height: 580px;
+  max-height: calc(100vh - 64px);
   display: flex;
-  height: 100vh;
-  background: #0f172a;
-  color: #e2e8f0;
-  font: 400 14px/1.5 system-ui, -apple-system, sans-serif;
-  position: relative;
+  border-radius: 18px;
   overflow: hidden;
+  background: #10121b;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 24px 80px rgba(0, 0, 0, 0.55),
+    0 0 120px rgba(139, 148, 200, 0.06);
+  animation: spDialogIn 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.sp-close-btn {
+@keyframes spDialogIn {
+  from { transform: translateY(18px) scale(0.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ── Close Button ── */
+.sp-dialog-close {
   position: absolute;
-  top: 12px;
+  top: 14px;
   right: 16px;
   z-index: 10;
-  border: none;
-  background: rgba(255, 255, 255, 0.08);
-  color: #e2e8f0;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 50%;
-  font-size: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #8890a8;
+  font-size: 16px;
+  font-family: 'Georgia', 'Times New Roman', serif;
   cursor: pointer;
   display: grid;
   place-items: center;
+  transition: all 140ms ease;
 }
-.sp-close-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
+.sp-dialog-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d0d4e4;
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 /* ── Nav ── */
 .sp-nav {
-  width: 220px;
-  min-width: 220px;
+  width: 212px;
+  min-width: 212px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(15, 23, 42, 0.98);
+  background: #0a0c14;
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 20px 12px 14px;
 }
-.sp-nav-header {
-  padding: 20px 18px 14px;
-  font-size: 14px;
+
+.sp-nav-brand {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #94a3b8;
+  color: #c8cee4;
+  letter-spacing: 0.6px;
+  padding: 0 8px 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .sp-nav-items {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 0 8px;
+  gap: 1px;
 }
+
 .sp-nav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 9px;
+  padding: 8px 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   background: transparent;
-  color: #94a3b8;
-  font-size: 13px;
+  color: #6e7596;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12.5px;
+  font-weight: 450;
   cursor: pointer;
   text-align: left;
+  transition: all 120ms ease;
 }
+
 .sp-nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.03);
+  color: #a4acc4;
 }
+
 .sp-nav-item.active {
-  background: rgba(91, 141, 239, 0.14);
-  color: #93b4f5;
-  font-weight: 600;
+  background: rgba(200, 176, 128, 0.1);
+  color: #d4c098;
+  font-weight: 550;
 }
+
 .sp-nav-icon {
-  font-size: 15px;
-  width: 22px;
+  font-size: 14px;
+  width: 20px;
   text-align: center;
   flex-shrink: 0;
+  opacity: 0.7;
 }
+
+.sp-nav-item.active .sp-nav-icon { opacity: 1; }
+
 .sp-nav-footer {
-  padding: 14px 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
+
 .sp-reset-btn {
   width: 100%;
-  padding: 8px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 7px;
+  border: 1px solid rgba(239, 68, 68, 0.18);
   border-radius: 8px;
   background: transparent;
-  color: #fca5a5;
-  font-size: 12px;
+  color: #c48080;
+  font-size: 11.5px;
+  font-family: system-ui, -apple-system, sans-serif;
   cursor: pointer;
+  transition: all 140ms ease;
 }
+
 .sp-reset-btn:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #e8a0a0;
 }
 
 /* ── Content ── */
 .sp-content {
   flex: 1;
   overflow-y: auto;
-  padding: 24px 32px 40px;
+  padding: 24px 28px 28px;
+  background: #10121b;
+  position: relative;
+}
+
+.sp-content::-webkit-scrollbar { width: 5px; }
+.sp-content::-webkit-scrollbar-track { background: transparent; }
+.sp-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
 }
 
 .sp-page-title {
-  font-size: 20px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 19px;
   font-weight: 700;
+  color: #d8dcee;
   margin-bottom: 20px;
-  color: #f1f5f9;
+  letter-spacing: 0.3px;
 }
 
 /* ── Live Preview ── */
 .sp-live-preview {
   position: relative;
-  border-radius: 12px;
+  border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(120, 140, 200, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(60, 80, 140, 0.06) 0%, transparent 50%),
+    linear-gradient(160deg, #141828 0%, #1a1e30 40%, #111420 100%);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 12%;
+  padding-bottom: 14%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
+
 .sp-live-preview-inner {
   text-align: center;
-  padding: 12px 24px;
-  border-radius: 8px;
-  max-width: 80%;
+  padding: 10px 20px;
+  border-radius: 7px;
+  max-width: 82%;
 }
+
 .sp-live-preview-zh {
+  font-family: system-ui, -apple-system, sans-serif;
   font-weight: 800;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
+
 .sp-live-preview-en {
+  font-family: system-ui, -apple-system, sans-serif;
   font-weight: 500;
 }
 
 /* ── Presets Grid ── */
 .sp-section-label {
-  font-size: 13px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 12px;
   font-weight: 600;
-  color: #94a3b8;
-  margin-bottom: 12px;
-  margin-top: 24px;
+  color: #6e7596;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
+
 .sp-presets-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .sp-preset-card {
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.015);
   cursor: pointer;
   text-align: center;
-  transition: border-color 120ms ease;
+  transition: all 160ms ease;
 }
+
 .sp-preset-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateY(-1px);
 }
+
 .sp-preset-card.active {
-  border-color: #5b8def;
+  border-color: rgba(200, 176, 128, 0.4);
+  background: rgba(200, 176, 128, 0.06);
 }
+
 .sp-preset-card-preview {
-  height: 40px;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  height: 34px;
+  border-radius: 5px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11px;
   font-weight: 700;
 }
+
 .sp-preset-card-name {
-  font-size: 12px;
-  color: #cbd5e1;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11px;
+  color: #8890a8;
+  font-weight: 450;
 }
 
-/* ── Style Controls ── */
+/* ── Controls ── */
 .sp-controls-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .sp-control-group {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  padding: 14px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 9px;
+  padding: 12px;
 }
 
 .sp-control-group-title {
-  font-size: 12px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 11px;
   font-weight: 600;
-  color: #94a3b8;
-  margin-bottom: 10px;
+  color: #6e7596;
+  margin-bottom: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .sp-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 5px 0;
-  font-size: 13px;
-  color: #cbd5e1;
+  gap: 10px;
+  padding: 4px 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12.5px;
+  color: #b0b8ce;
 }
 
 .sp-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: #5b8def;
+  width: 15px;
+  height: 15px;
+  accent-color: #c8b080;
 }
 
 .sp-label input[type="range"] {
-  width: 100px;
-  height: 4px;
-  accent-color: #5b8def;
+  width: 90px;
+  height: 3px;
+  accent-color: #8890b8;
 }
 
 .sp-label input[type="color"] {
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
   padding: 2px;
   background: transparent;
   cursor: pointer;
 }
 
 .sp-label select {
-  background: rgba(255, 255, 255, 0.08);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #b0b8ce;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
-  padding: 4px 8px;
+  padding: 4px 7px;
+  font-family: system-ui, -apple-system, sans-serif;
   font-size: 12px;
   cursor: pointer;
 }
 
 .sp-label select option {
-  background: #1a1a2e;
-  color: #e2e8f0;
+  background: #1a1e2a;
+  color: #d0d4e4;
+}
+
+.sp-label input[type="text"] {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 4px 8px;
+  color: #d0d4e4;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12px;
 }
 
 /* ── Provider List ── */
 .sp-provider-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
+
 .sp-provider-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: system-ui, -apple-system, sans-serif;
 }
+
 .sp-provider-card.active {
-  border-color: rgba(91, 141, 239, 0.4);
+  border-color: rgba(200, 176, 128, 0.22);
+  background: rgba(200, 176, 128, 0.04);
 }
+
 .sp-provider-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-}
-.sp-provider-name {
-  font-weight: 600;
-  font-size: 14px;
-}
-.sp-provider-model {
-  font-size: 12px;
-  color: #94a3b8;
-}
-.sp-provider-actions {
-  display: flex;
-  gap: 6px;
+  gap: 1px;
 }
 
+.sp-provider-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #c8cee4;
+}
+
+.sp-provider-model {
+  font-size: 11px;
+  color: #6e7596;
+}
+
+.sp-provider-actions {
+  display: flex;
+  gap: 5px;
+}
+
+/* ── Buttons ── */
 .sp-btn {
-  padding: 6px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e2e8f0;
-  font-size: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #a4acc4;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 11.5px;
   cursor: pointer;
+  transition: all 140ms ease;
 }
+
 .sp-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #d0d4e4;
 }
+
 .sp-btn.primary {
-  background: #5b8def;
-  border-color: #5b8def;
-  color: #fff;
+  background: #c8b080;
+  border-color: #c8b080;
+  color: #141420;
   font-weight: 600;
 }
-.sp-btn.danger {
-  border-color: rgba(239, 68, 68, 0.4);
-  color: #fca5a5;
+
+.sp-btn.primary:hover {
+  background: #d4c090;
+  border-color: #d4c090;
 }
+
+.sp-btn.danger {
+  border-color: rgba(239, 68, 68, 0.14);
+  color: #c48080;
+}
+
+.sp-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.06);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
 .sp-btn.small {
   padding: 3px 8px;
-  font-size: 11px;
+  font-size: 10.5px;
 }
 
 /* ── Placeholder ── */
@@ -324,69 +438,47 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 300px;
-  color: #64748b;
+  height: 260px;
   gap: 8px;
 }
+
 .sp-placeholder-icon {
-  font-size: 48px;
-  opacity: 0.5;
+  font-size: 42px;
+  opacity: 0.3;
+  font-family: 'Georgia', serif;
+  color: #8890b8;
 }
+
 .sp-placeholder-text {
-  font-size: 16px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 15px;
+  color: #6e7596;
 }
+
 .sp-placeholder-sub {
-  font-size: 13px;
-  color: #475569;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  color: #4a5070;
 }
 
 /* ── Feedback ── */
-.sp-feedback-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
 .sp-feedback-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-}
-.sp-feedback-label {
-  font-size: 13px;
-  color: #cbd5e1;
-}
-.sp-feedback-value {
-  font-size: 13px;
-  color: #94a3b8;
+  padding: 9px 12px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.015);
 }
 
-/* ── Responsive ── */
-@media (max-width: 640px) {
-  .sp-root {
-    flex-direction: column;
-  }
-  .sp-nav {
-    flex-direction: row;
-    width: 100%;
-    min-width: 100%;
-    overflow-x: auto;
-    padding: 8px;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-  .sp-nav-header {
-    display: none;
-  }
-  .sp-nav-items {
-    flex-direction: row;
-  }
-  .sp-nav-footer {
-    display: none;
-  }
-  .sp-content {
-    padding: 16px;
-  }
+.sp-feedback-label {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12.5px;
+  color: #8890a8;
+}
+
+.sp-feedback-value {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 12.5px;
+  color: #6e7596;
 }
